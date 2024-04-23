@@ -3,10 +3,9 @@
     <input v-model="newItem" @keyup.enter="addItem" placeholder="Add item" />
     <button @click="addItem">新建</button>
     <ul>
-      <li v-for="(item, index) in items" :key="index+item.text">
+      <li v-for="(item, index) in items" :key="item.id">
         <div>第 {{ change(index + 1) }}条</div>
-    
-        <input v-show="item.isEdit" v-model="item.text" @keyup.enter="addItem" placeholder="Add item" />
+        <input v-show="item.isEdit" v-model="item.text" />
         <span v-show="!item.isEdit"> {{ item.text }}</span>
         <div>
           <button @click="removeItem(index)">删除</button>
@@ -59,8 +58,9 @@ export default {
     },
     addItem() {
       if (this.newItem.trim()) {
-        this.items.push({ text: this.newItem.trim(), isEdit:false});
+        this.items.push({ text: this.newItem.trim(), isEdit:false,id:Math.random()});
         this.newItem = "";
+        console.log(this.items,  64);
       }
     },
     removeItem(index) {
